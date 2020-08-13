@@ -1,5 +1,4 @@
 # jooble_test_task
-test task for Data Scientist at Jooble
 
 To run program you shoud input filepath and type of normalize. For example:
 
