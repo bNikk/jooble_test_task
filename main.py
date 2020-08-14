@@ -24,8 +24,12 @@ def main(file_name, scaler):
     temp = pd.DataFrame(temp)
     temp = temp.set_axis(col_name, axis=1)
 
-    temp['max_feature_2_abs_mean_diff '] = (temp.max(axis=1) - temp.max(axis=1).mean()).astype(float)
+    # temp['max_feature_2_abs_mean_diff '] = (temp.max(axis=1) - temp.max(axis=1).mean()).astype(float)
     temp['max_feature_2_index'] = temp.idxmax(axis="columns").str[10:].astype(int)
+
+    max_index_list = temp.iloc[:, temp['max_feature_2_index']].mean().tolist()
+    temp['max_feature_2_abs_mean_diff '] = temp.iloc[:, :-1].max(axis=1) - max_index_list
+
     temp = pd.concat([df.iloc[:, 0], temp], axis=1)
 
     return temp.to_csv(f'{file_name[:-4]}_proc.tsv', sep='\t', index=False)
